@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Trainer, Slot, Booking
 
-# Register your models here.
+admin.site.register(Trainer)
+admin.site.register(Slot)
+admin.site.register(Booking)
+

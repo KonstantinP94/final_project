@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "*.html": "django-html"
+  },
+  "emmet.includeLanguages": {
+    "django-html": "html"
+  },
+  "python.linting.enabled": true,
+  "python.formatting.provider": "black"
+}
