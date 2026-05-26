@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
 from .forms import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -32,4 +32,9 @@ def login_view(request):
         form = AuthenticationForm()
     
     return render(request, 'login.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('sport:home')
     
