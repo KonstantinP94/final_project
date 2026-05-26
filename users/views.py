@@ -1,15 +1,35 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .forms import forms
+
+from .forms import CustomUserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
+
+# Create your views here.
 
 
-def sign_up(request):
-   form = SignUpForm(request.POST or None)
-   if request.method == "POST" and form.is_valid():
-       user = form.save()
-		login(request, user)
-       return redirect('shop:products')
-   return render(request, 'sign_up.html', {'form': form})
+def register_view(request):
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('sport:home')
+        # если форма невалидна, то выходим из if и в конце render покажет форму с ошибками
+    else:
+        form = CustomUserCreationForm()   # пустая форма для GET
+
+    return render(request, 'register.html', context={'form': form})
 
 
-
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('sport:home')
+    else:
+        form = AuthenticationForm()
+    
+    return render(request, 'login.html', {'form': form})
+    
