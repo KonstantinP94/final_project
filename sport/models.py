@@ -25,7 +25,7 @@ class Slot(models.Model):
         on_delete=models.CASCADE, # каскадное удаление слотов при удалении тренера
         related_name='slots')     # чтобы можно было получить слоты тренера: trainer.slots.all()
     
-    date = models.DateField(auto_now=True)
+    date = models.DateField(auto_now_add=True)
     start_time = models.TimeField()
     end_time = models.TimeField()
     is_booked = models.BooleanField(default=False)
