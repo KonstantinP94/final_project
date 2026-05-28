@@ -12,8 +12,7 @@ def register_view(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
-            return redirect('sport:home')
+            return redirect('users:login')
         # если форма невалидна, то выходим из if и в конце render покажет форму с ошибками
     else:
         form = CustomUserCreationForm()   # пустая форма для GET
@@ -36,5 +35,5 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('sport:home')
+    return redirect('users:login')
     

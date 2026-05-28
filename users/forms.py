@@ -4,11 +4,12 @@ from django.contrib.auth.models import User
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, label='Email')
+    username = forms.CharField(required=True, label='Username')
     
     class Meta:
         model = User
         fields = [
-            'email',
+            'username',
             'password1',
             'password2'
         ]
