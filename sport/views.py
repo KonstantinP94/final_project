@@ -1,8 +1,6 @@
 from django.shortcuts import render
-
-# Create your views here.
-
-from django.http import HttpResponse
+from .models import Trainer   # импортируем модель Trainer
 
 def home(request):
-    return HttpResponse("Главная страница")
+    trainers = Trainer.objects.all()          # получаем всех тренеров
+    return render(request, 'home.html', {'trainers': trainers})
