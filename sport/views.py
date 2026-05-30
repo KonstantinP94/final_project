@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import Trainer   # импортируем модель Trainer
+from django.shortcuts import render, get_object_or_404
+from .models import Trainer, Slot   # импортируем модель Trainer
 
 def home(request):
     trainers = Trainer.objects.all()          # получаем всех тренеров
