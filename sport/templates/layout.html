@@ -11,14 +11,14 @@
 <header class="bg-white shadow-md sticky top-0 z-50">
    <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
 
-       <a href=""
+       <a href="{% url 'sport:home' %}"
           class="flex items-center gap-2 text-2xl font-bold text-blue-600 hover:text-blue-700 transition duration-200">
            <span class="text-3xl">🏋️</span>
            <span>SportClub</span>
        </a>
 
        <div class="flex items-center gap-2 sm:gap-3">
-           <a href=""
+           <a href="{% url 'sport:home' %}"
               class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition duration-200">
                Главная
            </a>
@@ -31,16 +31,16 @@
            <span class="hidden sm:inline text-sm text-gray-500">
                        {{ user.username }}
                    </span>
-           <a href=""
+           <a href="{% url 'users:logout' %}"
               class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 text-sm font-semibold rounded-lg transition duration-200">
                Выход
            </a>
            {% else %}
-           <a href=""
+           <a href="{% url 'users:login' %}"
               class="px-4 py-2 text-sm font-semibold text-blue-600 hover:text-blue-700 transition duration-200">
                Войти
            </a>
-           <a href=""
+           <a href="{% url 'users:register' %}"
               class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition duration-200">
                Регистрация
            </a>

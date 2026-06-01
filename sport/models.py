@@ -22,8 +22,8 @@ class Trainer(models.Model):
 class Slot(models.Model):
     trainer = models.ForeignKey(
         'Trainer',                
-        on_delete=models.CASCADE, # каскадное удаление слотов при удалении тренера
-        related_name='slots')     # чтобы можно было получить слоты тренера: trainer.slots.all()
+        on_delete=models.CASCADE, 
+        related_name='slots')     
     
     date = models.DateField(auto_now_add=True)
     start_time = models.TimeField()
@@ -41,14 +41,14 @@ class Booking(models.Model):
     user = models.ForeignKey(
         User, 
         on_delete=models.CASCADE,
-        related_name='bookings'   # user.bookings.all()
+        related_name='bookings'  
     )
     slot = models.OneToOneField(
         'Slot',
         on_delete=models.CASCADE,
         related_name='bookings'
     )
-    created_at = models.DateTimeField(auto_now_add=True)  # дата и время бронирования
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user} – {self.slot}"
