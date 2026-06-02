@@ -13,9 +13,9 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             return redirect('users:login')
-        # если форма невалидна, то выходим из if и в конце render покажет форму с ошибками
+        
     else:
-        form = CustomUserCreationForm()   # пустая форма для GET
+        form = CustomUserCreationForm()   
 
     return render(request, 'register.html', context={'form': form})
 
