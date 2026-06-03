@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Trainer, Slot  
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import Trainer, Slot, Booking
 
 def home(request):
     trainers = Trainer.objects.all()          
@@ -19,3 +21,28 @@ def trainer_detail(request, trainer_id):
         'trainer': trainer,
         'slots': slots,
     })
+    
+
+    
+@login_required
+def book_slot(request, slot_id):
+
+    slot = get_object_or_404(Slot, id=slot_id)
+
+
+    if slot.is_booked:
+        messages.error(request, 'Этот слот уже занят. Выберите другое время.')
+        return redirect('sport:trainer_detail', trainer_id=slot.trainer.id)
+
+    
+    booking = Booking.objects.create(
+        user=request.user,
+        slot=slot
+    )
+
+    slot.is_booked = True
+    slot.save()
+
+    messages.success(request, f'Вы успешно записаны на занятие к {slot.trainer} на {slot.start_time}')
+
+    return redirect('sport:home')
