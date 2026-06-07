@@ -52,3 +52,11 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.user} – {self.slot}"
+
+
+@receiver(post_save, sender=Booking)
+def mark_slot_booked(sender, instance, created, **kwargs):
+    if created:
+        instance.slot.is_booked = True
+        instance.slot.save()
+        
