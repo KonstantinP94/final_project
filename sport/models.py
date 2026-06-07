@@ -6,6 +6,10 @@ from datetime import datetime
 
 from django.contrib.auth.models import User
 
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
+from .models import Booking  
+
 
 class Trainer(models.Model):
     first_name = models.CharField(max_length=50)
@@ -60,3 +64,8 @@ def mark_slot_booked(sender, instance, created, **kwargs):
         instance.slot.is_booked = True
         instance.slot.save()
         
+
+@receiver(post_delete, sender=Booking)
+def mark_slot_free(sender, instance, **kwargs):
+    instance.slot.is_booked = False
+    instance.slot.save()
