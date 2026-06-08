@@ -4,6 +4,9 @@ from django.contrib.auth import login, logout
 from .forms import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
 # Create your views here.
 
 
@@ -37,3 +40,10 @@ def logout_view(request):
     logout(request)
     return redirect('users:login')
     
+@login_required
+def profile_view(request):
+    # Получаем все брони текущего пользователя, подтягивая связанные slot и trainer
+    bookings = (request.user.bookings
+                .select_related('slot__trainer')
+                .order_by('slot__start_time'))
+    return render(request, 'profile.html', {'bookings': bookings})
