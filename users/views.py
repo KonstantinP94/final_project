@@ -42,7 +42,7 @@ def logout_view(request):
     
 @login_required
 def profile_view(request):
-    # Получаем все брони текущего пользователя, подтягивая связанные slot и trainer
+    
     bookings = (request.user.bookings
                 .select_related('slot__trainer')
                 .order_by('slot__start_time'))

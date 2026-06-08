@@ -45,4 +45,4 @@ def book_slot(request, slot_id):
 
     messages.success(request, f'Вы успешно записаны на занятие к {slot.trainer} на {slot.start_time}')
 
-    return redirect('sport:home')
+    return redirect('users:profile')
