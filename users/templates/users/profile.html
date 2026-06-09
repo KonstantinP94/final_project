@@ -91,7 +91,7 @@
                         <div class="text-xs text-gray-500">до {{ booking.slot.end_time|time:"H:i" }}</div>
                     </div>
                 </div>
-                <a href="#" onclick="return confirm('Вы уверены, что хотите отменить запись?')" class="group/btn flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-xl transition duration-200 border border-red-100">
+                <a href="{% url 'sport:cancel_booking' booking.id %}" onclick="return confirm('Вы уверены, что хотите отменить запись?')" class="group/btn flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-xl transition duration-200 border border-red-100">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     <span>Отменить запись</span>
                 </a>
