@@ -46,3 +46,23 @@ def book_slot(request, slot_id):
     messages.success(request, f'Вы успешно записаны на занятие к {slot.trainer} на {slot.start_time}')
 
     return redirect('users:profile')
+
+
+@login_required
+def cancel_booking(request, booking_id):
+    
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    
+    
+    slot = booking.slot
+    slot.is_booked = False
+    slot.save()
+    
+    
+    booking.delete()
+    
+    
+    messages.success(request, f'Запись на {slot.start_time} отменена.')
+    
+    
+    return redirect('users:profile')
