@@ -16,13 +16,13 @@ def trainer_detail(request, trainer_id):
     slots = Slot.objects.filter(trainer=trainer)
     date_from = request.GET.get('date_from', '')
     date_to = request.GET.get('date_to', '')
-    show_only_free = request.GET.get('show_only_free', '')
+    show_only_free = request.GET.get('show_only_free')
     
     if date_from:
         slots = slots.filter(date__gte=date_from)
     if date_to:
         slots = slots.filter(date__lte=date_to)
-    if show_only_free:
+    if show_only_free == 'on':
         slots = slots.filter(is_booked=False)
         
     today = date.today().isoformat()

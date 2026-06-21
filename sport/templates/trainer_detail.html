@@ -134,11 +134,12 @@
                       class="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
            </div>
 
-           <label class="flex items-center gap-2 cursor-pointer select-none lg:pb-2.5">
-               <input type="checkbox" name="only_free" value="1" {% if show_only_free %}checked{% endif %}
-                      class="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-               <span class="text-sm font-semibold text-gray-700 whitespace-nowrap">Только свободные</span>
-           </label>
+            <label class="flex items-center gap-2 cursor-pointer select-none lg:pb-2.5">
+                <input type="checkbox" name="show_only_free" id="show_only_free" 
+                    {% if show_only_free == 'on' %}checked{% endif %}
+                    class="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <span class="text-sm font-semibold text-gray-700 whitespace-nowrap">Только свободные</span>
+            </label>
 
            <div class="flex gap-3">
                <button type="submit"
