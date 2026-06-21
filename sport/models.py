@@ -55,7 +55,33 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.user} – {self.slot}"
+    
+    
+class Review(models.Model):
+    RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]
+    
+    trainer = models.ForeignKey(
+        Trainer,
+        on_delete=models.CASCADE,
+        related_name='reviews'
+    )
+    
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+    
+    rating = models.IntegerField(choices=RATING_CHOICES)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        unique_together = ['trainer', 'user']
 
+    def __str__(self):
+        return f"{self.user.username} - {self.trainer} - {self.rating}/5"
+        
+    
 
 @receiver(post_save, sender=Booking)
 def mark_slot_booked(sender, instance, created, **kwargs):
