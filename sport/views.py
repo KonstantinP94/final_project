@@ -12,11 +12,39 @@ def home(request):
 def trainer_detail(request, trainer_id):
     trainer = get_object_or_404(Trainer, id=trainer_id)
     slots = Slot.objects.filter(trainer=trainer)
-    slots = slots.order_by('start_time')
+    date_from = request.GET.get('date_from', '')
+    date_to = request.GET.get('date_to', '')
+    show_only_free = request.GET.get('show_only_free', '')
+    
+    if date_from:
+        slots = slots.filter(date__gte=date_from)
+    if date_to:
+        slots = slots.filter(date__lte=date_to)
+    if show_only_free:
+        slots = slots.filter(is_booked=False)
+        
+    today = date.today().isoformat()
+    slots = slots.order_by('date', 'start_time')
+    reviews = trainer.reviews.select_related('user').all()
+    avg_rating = reviews.aggregate(Avg('rating'))['rating__avg']
+    
+    user_review = None
+    if request.user.is_authenticated:
+        user_review = trainer.reviews.filter(user=request.user).first()
+        
     return render(request, 'trainer_detail.html', {
         'trainer': trainer,
         'slots': slots,
-          })
+        'date_from': date_from,
+        'date_to': date_to,
+        'show_only_free': show_only_free,
+        'today': today,
+        'reviews': reviews,
+        'avg_rating': avg_rating,
+        'user_review': user_review,
+    })
+    
+    
     
 @login_required
 def book_slot(request, slot_id):
