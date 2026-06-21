@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Trainer, Slot, Booking
+from datetime import date
+from django.db.models import Avg
 
 def home(request):
     trainers = Trainer.objects.all()
