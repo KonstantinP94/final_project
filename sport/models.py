@@ -6,6 +6,9 @@ from datetime import datetime
 
 from django.contrib.auth.models import User
 
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
+
 
 class Trainer(models.Model):
     first_name = models.CharField(max_length=50)
@@ -52,3 +55,42 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.user} – {self.slot}"
+    
+    
+class Review(models.Model):
+    RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]
+    
+    trainer = models.ForeignKey(
+        Trainer,
+        on_delete=models.CASCADE,
+        related_name='reviews'
+    )
+    
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+    
+    rating = models.IntegerField(choices=RATING_CHOICES)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        unique_together = ['trainer', 'user']
+
+    def __str__(self):
+        return f"{self.user.username} - {self.trainer} - {self.rating}/5"
+        
+    
+
+@receiver(post_save, sender=Booking)
+def mark_slot_booked(sender, instance, created, **kwargs):
+    if created:
+        instance.slot.is_booked = True
+        instance.slot.save()
+        
+
+@receiver(post_delete, sender=Booking)
+def mark_slot_free(sender, instance, **kwargs):
+    instance.slot.is_booked = False
+    instance.slot.save()
