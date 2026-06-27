@@ -109,7 +109,7 @@ def add_review(request, trainer_id):
 
 @login_required
 def edit_review(request, review_id):
-    review = get_object_or_404(id=review_id, user=request.user)
+    review = get_object_or_404(Review, id=review_id, user=request.user)
     
     if request.method != 'POST':
         return redirect('sport:trainer_detail', trainer_id=review.trainer.id)
