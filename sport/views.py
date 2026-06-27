@@ -106,3 +106,24 @@ def add_review(request, trainer_id):
     
     messages.success(request, 'Спасибо за ваш отзыв!')
     return redirect('sport:trainer_detail', trainer_id=trainer.id)
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(id=review_id, user=request.user)
+    
+    if request.method != 'POST':
+        return redirect('sport:trainer_detail', trainer_id=review.trainer.id)
+    
+    rating = request.POST.get('rating')
+    text = request.POST.get('text', '').strip()
+    
+    if rating not in ['1', '2', '3', '4', '5'] or not text:
+        messages.error(request, 'Пожалуйста, выберите оценку и напишите текст отзыва.')
+        return redirect('sport:trainer_detail', trainer_id=review.trainer.id)
+
+    review.rating = int(rating)
+    review.text = text
+    review.save()
+
+    messages.success(request, 'Ваш отзыв был обновлён!')
+    return redirect('sport:trainer_detail', trainer_id=review.trainer.id)
