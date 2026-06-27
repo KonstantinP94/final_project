@@ -272,40 +272,45 @@
            {% endif %}
        </div>
 
-       {% if user.is_authenticated %}
-       {% if user_review %}
-       <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5 mb-8">
-           <p class="text-blue-700 font-semibold">Вы уже оставили отзыв этому тренеру.</p>
-       </div>
-       {% else %}
-       <div class="bg-white shadow-md rounded-2xl p-6 mb-10">
-           <h3 class="text-lg font-bold text-gray-800 mb-4">Оставить отзыв</h3>
-           <form method="post" action="{% url 'sport:add_review' trainer.id %}">
-               {% csrf_token %}
+        {% if user.is_authenticated %}
+        {% if user_review %}
+            <div class="mb-10">
+            <form id="review-edit" method="post" action="{% url 'sport:edit_review' user_review.id %}"
+            class="hidden bg-white shadow-md rounded-2xl p-6">
+            {% csrf_token %}
 
-               <label class="block text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">Оценка</label>
-               <div class="flex gap-1 mb-5" data-rating-input>
-                   {% for i in "12345" %}
-                   <button type="button" data-value="{{ forloop.counter }}"
-                           class="star text-4xl text-gray-300 transition hover:scale-110">★
-                   </button>
-                   {% endfor %}
-                   <input type="hidden" name="rating" value="" required>
-               </div>
+            <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-gray-800">Редактировать отзыв</h3>
+            </div>
 
-               <label for="id_text" class="block text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">Текст
-                   отзыва</label>
-               <textarea name="text" id="id_text" rows="4" required
-                         class="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition mb-5"
-                         placeholder="Поделитесь впечатлениями о тренировках..."></textarea>
+            <label class="block text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">Оценка</label>
+            <div class="flex gap-1 mb-5" data-rating-input>
+            {% for i in "12345" %}
+            <button type="button" data-value="{{ forloop.counter }}"
+                   class="star text-4xl text-gray-300 transition hover:scale-110">★
+           </button>
+            {% endfor %}
+            <input type="hidden" name="rating" value="{{ user_review.rating }}" required>
+            </div>
 
-               <button type="submit"
-                       class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition shadow-md hover:shadow-lg">
-                   Отправить отзыв
-               </button>
-           </form>
-       </div>
-       {% endif %}
+            <label for="id_text" class="block text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">Текст отзыва</label>
+    
+            <textarea name="text" id="id_text" rows="4" required
+                 class="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition mb-5">{{ user_review.text }}</textarea>
+
+            <button type="submit"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition shadow-md hover:shadow-lg">
+                Сохранить
+            </button>
+
+            <button type="reset" onclick="toggleReviewEdit()"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition shadow-md hover:shadow-lg">
+                Отмена
+            </button>
+        </form>
+    </div>
+{% else %}
+
        {% else %}
        <div class="bg-white shadow-md rounded-2xl p-5 mb-10 text-center">
            <a href="{% url 'users:login' %}" class="text-blue-600 hover:text-blue-700 font-semibold">Войдите</a>
