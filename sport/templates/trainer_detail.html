@@ -340,6 +340,24 @@
                        </svg>
                        {% endfor %}
                    </div>
+
+                    {% if review.user == user %}
+                    <button type="button" id="review-edit-btn"
+                    onclick="toggleReviewEdit()"
+                        class="inline-flex items-center
+                        justify-center w-8 h-8 text-blue-600
+                        hover:bg-blue-50 rounded-lg transition"
+                        title="Редактировать">
+                        <svg class="w-4 h-4" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002
+                    2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828
+                    2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                        </svg>
+                    </button>
+                    {% endif %}
                </div>
                <p class="text-gray-700 leading-relaxed">{{ review.text }}</p>
            </div>
@@ -352,30 +370,42 @@
 </section>
 
 <script>
-   document.querySelectorAll('[data-rating-input]').forEach(function (wrap) {
-       const input = wrap.querySelector('input[name="rating"]');
-       const stars = wrap.querySelectorAll('.star');
+document.querySelectorAll('[data-rating-input]').forEach(function (wrap) {
+   const input = wrap.querySelector('input[name="rating"]');
+   const stars = wrap.querySelectorAll('.star');
 
-       function paint(n) {
-           stars.forEach(function (s, i) {
-               s.classList.toggle('text-yellow-400', i < n);
-               s.classList.toggle('text-gray-300', i >= n);
-           });
-       }
-
-       stars.forEach(function (s) {
-           s.addEventListener('click', function () {
-               input.value = s.dataset.value;
-               paint(+s.dataset.value);
-           });
-           s.addEventListener('mouseenter', function () {
-               paint(+s.dataset.value);
-           });
+   function paint(n) {
+       stars.forEach(function (s, i) {
+           s.classList.toggle('text-yellow-400', i < n);
+           s.classList.toggle('text-gray-300', i >= n);
        });
-       wrap.addEventListener('mouseleave', function () {
-           paint(+input.value || 0);
+   }
+
+   stars.forEach(function (s) {
+       s.addEventListener('click', function () {
+           input.value = s.dataset.value;
+           paint(+s.dataset.value);
+       });
+       s.addEventListener('mouseenter', function () {
+           paint(+s.dataset.value);
        });
    });
+   wrap.addEventListener('mouseleave', function () {
+       paint(+input.value || 0);
+   });
+
+   paint(+input.value || 0);
+});
+
+function toggleReviewEdit() {
+   const form = document.getElementById('review-edit');
+   const btn = document.getElementById('review-edit-btn');
+
+   const willOpen = form.classList.contains('hidden');
+
+   form.classList.toggle('hidden', !willOpen);
+   btn.classList.toggle('hidden', willOpen);
+}
 </script>
 
 {% endblock %}
