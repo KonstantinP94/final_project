@@ -127,3 +127,18 @@ def edit_review(request, review_id):
 
     messages.success(request, 'Ваш отзыв был обновлён!')
     return redirect('sport:trainer_detail', trainer_id=review.trainer.id)
+
+
+@login_required
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+     
+    if request.method != 'POST':
+        return redirect('sport:trainer_detail', trainer_id=review.trainer.id)
+
+    trainer_id = review.trainer.id
+    
+    review.delete()
+
+    messages.success(request, 'Ваш отзыв был удалён.')
+    return redirect('sport:trainer_detail', trainer_id=trainer_id)
