@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Trainer, Slot, Booking
+from .models import Trainer, Slot, Booking, Review
 from datetime import date
 from django.db.models import Avg
 
@@ -78,3 +78,67 @@ def cancel_booking(request, booking_id):
     booking.delete()
     messages.success(request, f'Запись на {slot.start_time} отменена.')
     return redirect('users:profile')
+
+@login_required
+def add_review(request, trainer_id):
+    trainer = get_object_or_404(Trainer, id=trainer_id)
+    
+    if request.method != 'POST':
+        return redirect('sport:trainer_detail', trainer_id=trainer.id)
+    
+    if Review.objects.filter(trainer=trainer, user=request.user).exists():
+        messages.error(request, 'Вы уже оставили отзыв на этого тренера.')
+        return redirect('sport:trainer_detail', trainer_id=trainer.id)
+    
+    rating = request.POST.get('rating')
+    text = request.POST.get('text', '').strip()
+    
+    if rating not in ['1', '2', '3', '4', '5'] or not text:
+        messages.error(request, 'Пожалуйста, выберите оценку и напишите текст отзыва.')
+        return redirect('sport:trainer_detail', trainer_id=trainer.id)
+    
+    Review.objects.create(
+        trainer=trainer,
+        user=request.user,
+        rating=int(rating),
+        text=text
+    )
+    
+    messages.success(request, 'Спасибо за ваш отзыв!')
+    return redirect('sport:trainer_detail', trainer_id=trainer.id)
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+    
+    if request.method != 'POST':
+        return redirect('sport:trainer_detail', trainer_id=review.trainer.id)
+    
+    rating = request.POST.get('rating')
+    text = request.POST.get('text', '').strip()
+    
+    if rating not in ['1', '2', '3', '4', '5'] or not text:
+        messages.error(request, 'Пожалуйста, выберите оценку и напишите текст отзыва.')
+        return redirect('sport:trainer_detail', trainer_id=review.trainer.id)
+
+    review.rating = int(rating)
+    review.text = text
+    review.save()
+
+    messages.success(request, 'Ваш отзыв был обновлён!')
+    return redirect('sport:trainer_detail', trainer_id=review.trainer.id)
+
+
+@login_required
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+     
+    if request.method != 'POST':
+        return redirect('sport:trainer_detail', trainer_id=review.trainer.id)
+
+    trainer_id = review.trainer.id
+    
+    review.delete()
+
+    messages.success(request, 'Ваш отзыв был удалён.')
+    return redirect('sport:trainer_detail', trainer_id=trainer_id)
