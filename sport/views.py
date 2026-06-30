@@ -142,3 +142,9 @@ def delete_review(request, review_id):
 
     messages.success(request, 'Ваш отзыв был удалён.')
     return redirect('sport:trainer_detail', trainer_id=trainer_id)
+
+def about(request):
+    return render(request, 'about.html')
+
+def contacts(request):
+    return render(request, 'contacts.html')

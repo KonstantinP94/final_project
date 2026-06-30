@@ -1,0 +1,163 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+О нас — SportClub
+{% endblock %}
+
+{% block content %}
+
+<section class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 overflow-hidden">
+   <div class="absolute top-0 left-0 w-72 h-72 bg-blue-400 rounded-full opacity-20 -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+   <div class="absolute bottom-0 right-0 w-96 h-96 bg-indigo-400 rounded-full opacity-20 translate-x-1/3 translate-y-1/3 blur-3xl"></div>
+
+   <div class="relative max-w-6xl mx-auto px-4 py-20 text-center">
+       <span class="inline-block px-4 py-1 bg-white/10 backdrop-blur-sm text-blue-100 text-sm font-medium rounded-full mb-6 border border-white/20">
+           🏆 С нами с 2015 года
+       </span>
+       <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 leading-tight">
+           О нас
+       </h1>
+       <p class="text-xl text-blue-100 max-w-2xl mx-auto">
+           Мы помогаем людям стать сильнее, здоровее и увереннее в себе
+       </p>
+       <div class="grid grid-cols-3 gap-4 max-w-2xl mx-auto mt-12">
+           <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+               <div class="text-3xl font-bold text-white">10+</div>
+               <div class="text-sm text-blue-100">лет опыта</div>
+           </div>
+           <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+               <div class="text-3xl font-bold text-white">5000+</div>
+               <div class="text-sm text-blue-100">клиентов</div>
+           </div>
+           <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+               <div class="text-3xl font-bold text-white">98%</div>
+               <div class="text-sm text-blue-100">довольных</div>
+           </div>
+       </div>
+   </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-16">
+   <div class="flex items-end justify-between mb-10">
+       <div>
+           <h2 class="text-3xl font-bold text-gray-800 mb-2">Наша история</h2>
+           <p class="text-gray-600">Как всё начиналось</p>
+       </div>
+       <div class="hidden sm:block h-1 flex-1 bg-gradient-to-r from-blue-600 to-transparent ml-8 rounded-full"></div>
+   </div>
+
+   <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+       <div>
+           <p class="text-gray-600 leading-relaxed mb-4">
+               SportClub был основан в 2015 году с одной простой целью — сделать профессиональный фитнес доступным для
+               каждого. Мы начинали с небольшого зала и команды из трёх тренеров-энтузиастов.
+           </p>
+           <p class="text-gray-600 leading-relaxed mb-4">
+               За эти годы мы выросли в полноценный спортивный центр с современным оборудованием, опытными
+               специалистами и тысячами благодарных клиентов по всему городу.
+           </p>
+           <p class="text-gray-600 leading-relaxed">
+               Сегодня SportClub — это не просто спортзал, это сообщество людей, объединённых стремлением к здоровому
+               образу жизни и постоянному развитию.
+           </p>
+       </div>
+
+       <div class="grid grid-cols-2 gap-4">
+           <div class="bg-blue-50 rounded-2xl p-6 text-center">
+               <div class="text-4xl mb-3">🏋️</div>
+               <div class="font-semibold text-gray-800">Силовые тренировки</div>
+               <div class="text-sm text-gray-500 mt-1">Современные тренажёры</div>
+           </div>
+           <div class="bg-indigo-50 rounded-2xl p-6 text-center">
+               <div class="text-4xl mb-3">🧘</div>
+               <div class="font-semibold text-gray-800">Йога и растяжка</div>
+               <div class="text-sm text-gray-500 mt-1">Гармония тела и духа</div>
+           </div>
+           <div class="bg-blue-50 rounded-2xl p-6 text-center">
+               <div class="text-4xl mb-3">🥊</div>
+               <div class="font-semibold text-gray-800">Единоборства</div>
+               <div class="text-sm text-gray-500 mt-1">Бокс и кикбоксинг</div>
+           </div>
+           <div class="bg-indigo-50 rounded-2xl p-6 text-center">
+               <div class="text-4xl mb-3">🏊</div>
+               <div class="font-semibold text-gray-800">Кардио</div>
+               <div class="text-sm text-gray-500 mt-1">Бег, велосипед, эллипс</div>
+           </div>
+       </div>
+   </div>
+</section>
+
+<section class="bg-gray-50 py-16">
+   <div class="max-w-6xl mx-auto px-4">
+       <div class="flex items-end justify-between mb-10">
+           <div>
+               <h2 class="text-3xl font-bold text-gray-800 mb-2">Наши ценности</h2>
+               <p class="text-gray-600">То, что нас отличает</p>
+           </div>
+           <div class="hidden sm:block h-1 flex-1 bg-gradient-to-r from-blue-600 to-transparent ml-8 rounded-full"></div>
+       </div>
+
+       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+           <div class="bg-white shadow-lg rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+               <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl mb-5">💡</div>
+               <h3 class="text-xl font-bold text-gray-800 mb-3">Профессионализм</h3>
+               <p class="text-gray-500 leading-relaxed text-sm">Все наши тренеры имеют профильное образование и
+                   регулярно повышают квалификацию.</p>
+           </div>
+           <div class="bg-white shadow-lg rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+               <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-2xl mb-5">❤️</div>
+               <h3 class="text-xl font-bold text-gray-800 mb-3">Забота о клиентах</h3>
+               <p class="text-gray-500 leading-relaxed text-sm">Каждый клиент для нас уникален. Мы разрабатываем
+                   индивидуальные программы под ваши цели.</p>
+           </div>
+           <div class="bg-white shadow-lg rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+               <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl mb-5">🚀</div>
+               <h3 class="text-xl font-bold text-gray-800 mb-3">Результат</h3>
+               <p class="text-gray-500 leading-relaxed text-sm">Мы ориентированы на реальный результат, а не просто на
+                   посещаемость. Ваш прогресс — наша гордость.</p>
+           </div>
+           <div class="bg-white shadow-lg rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+               <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-2xl mb-5">🤝</div>
+               <h3 class="text-xl font-bold text-gray-800 mb-3">Сообщество</h3>
+               <p class="text-gray-500 leading-relaxed text-sm">SportClub — это место, где рождается дружба. Наши
+                   клиенты поддерживают друг друга.</p>
+           </div>
+           <div class="bg-white shadow-lg rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+               <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl mb-5">🛡️</div>
+               <h3 class="text-xl font-bold text-gray-800 mb-3">Безопасность</h3>
+               <p class="text-gray-500 leading-relaxed text-sm">Все тренировки проходят под контролем специалистов.
+                   Безопасность — наш приоритет.</p>
+           </div>
+           <div class="bg-white shadow-lg rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+               <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-2xl mb-5">🌱</div>
+               <h3 class="text-xl font-bold text-gray-800 mb-3">Развитие</h3>
+               <p class="text-gray-500 leading-relaxed text-sm">Мы постоянно развиваемся: новое оборудование, свежие
+                   методики, современные подходы к тренингу.</p>
+           </div>
+       </div>
+   </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 py-16">
+   <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-10 text-center shadow-xl">
+       <h2 class="text-3xl font-bold text-white mb-3">
+           Готовы начать?
+       </h2>
+       <p class="text-blue-100 mb-6 max-w-xl mx-auto">
+           Выберите тренера и запишитесь на первое занятие уже сегодня. Первая консультация бесплатно!
+       </p>
+       <div class="flex items-center justify-center gap-4 flex-wrap">
+           <a href="{% url 'sport:home' %}"
+              class="inline-block px-8 py-3 bg-white hover:bg-gray-100 text-blue-700 font-semibold rounded-xl transition duration-200 shadow-md">
+               Наши тренеры
+           </a>
+           <a href="{% url 'sport:contacts' %}"
+              class="inline-block px-8 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition duration-200 border border-white/30">
+               Связаться с нами
+           </a>
+       </div>
+   </div>
+</section>
+
+{% endblock %}
+
