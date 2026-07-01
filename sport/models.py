@@ -30,7 +30,7 @@ class Slot(models.Model):
         on_delete=models.CASCADE, 
         related_name='slots')     
     
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
     is_booked = models.BooleanField(default=False)
