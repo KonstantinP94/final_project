@@ -43,19 +43,20 @@ def logout_view(request):
     return redirect('users:login')
     
 
+from datetime import date, timedelta
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
 @login_required
 def profile_view(request):
     all_bookings = request.user.bookings.select_related('slot', 'slot__trainer')
-    
-    bookings = all_bookings
-    
+
     date_from = request.GET.get('date_from', '')
     date_to = request.GET.get('date_to', '')
     period = request.GET.get('period', '')
-    
+
     today = date.today()
-    
-    
+
     if period == 'today':
         date_from = today.isoformat()
         date_to = today.isoformat()
@@ -65,20 +66,28 @@ def profile_view(request):
     elif period == 'month':
         date_from = today.isoformat()
         date_to = (today + timedelta(days=30)).isoformat()
-    
+
+    upcoming = all_bookings.filter(slot__date__gte=today)
+    past = all_bookings.filter(slot__date__lt=today)
+
     if date_from:
-        bookings = bookings.filter(slot__date__gte=date_from)
-    
+        upcoming = upcoming.filter(slot__date__gte=date_from)
+        past = past.filter(slot__date__gte=date_from)
     if date_to:
-        bookings = bookings.filter(slot__date__lte=date_to)
-    
-    bookings = bookings.order_by('slot__date', 'slot__start_time')
-    
+        upcoming = upcoming.filter(slot__date__lte=date_to)
+        past = past.filter(slot__date__lte=date_to)
+
+    upcoming = upcoming.order_by('slot__date', 'slot__start_time')
+    past = past.order_by('-slot__date', 'slot__start_time')
+
+    total_bookings = all_bookings.count()
+
     return render(request, 'profile.html', {
-        'bookings': bookings,
+        'upcoming_bookings': upcoming,
+        'past_bookings': past,
+        'total_bookings': total_bookings,
         'date_from': date_from,
         'date_to': date_to,
         'period': period,
         'has_bookings': all_bookings.exists(),
     })
-

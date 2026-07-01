@@ -26,7 +26,7 @@ def trainer_detail(request, trainer_id):
         slots = slots.filter(is_booked=False)
         
     today = date.today().isoformat()
-    slots = slots.order_by('date', 'start_time')
+    slots = trainer.slots.filter(date__gte=date.today()).order_by('date', 'start_time')
     reviews = trainer.reviews.select_related('user').all()
     avg_rating = reviews.aggregate(Avg('rating'))['rating__avg']
     
@@ -142,3 +142,9 @@ def delete_review(request, review_id):
 
     messages.success(request, 'Ваш отзыв был удалён.')
     return redirect('sport:trainer_detail', trainer_id=trainer_id)
+
+def about(request):
+    return render(request, 'about.html')
+
+def contacts(request):
+    return render(request, 'contacts.html')

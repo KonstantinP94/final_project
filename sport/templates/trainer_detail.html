@@ -202,10 +202,16 @@
                </span>
            </div>
 
-           {% if slot.is_booked %}
-           <div class="block w-full text-center bg-gray-100 text-gray-400 font-semibold py-2.5 rounded-xl cursor-not-allowed">
+            {% if slot.is_booked %}
+            <div class="block w-full text-center bg-gray-100 text-gray-400 font-semibold py-2.5 rounded-xl cursor-not-allowed">
                Недоступно
-           </div>
+            </div>
+            
+            {% elif slot.is_past %}
+            <div class="block w-full text-center bg-gray-100 text-gray-400 font-semibold py-2.5 rounded-xl cursor-not-allowed">
+            Дата прошла
+            </div>
+
            {% else %}
            {% if user.is_authenticated %}
            <a href="{% url 'sport:book_slot' slot.pk %}"

@@ -4,6 +4,8 @@ from datetime import date
 from datetime import time
 from datetime import datetime
 
+from django.core.exceptions import ValidationError
+
 from django.contrib.auth.models import User
 
 from django.db.models.signals import post_save, post_delete
@@ -38,6 +40,23 @@ class Slot(models.Model):
         
     def __str__(self):
         return f"Тренер: {self.trainer}, Дата: {self.date}, Время: {self.start_time}"
+    
+    def clean(self):
+        if not self.pk and self.date and self.date < date.today():
+            raise ValidationError({
+                'date': 'Нельзя создавать слоты на прошедшую дату.'
+            })
+            
+        if self.start_time and self.end_time and self.start_time >= self.end_time:
+            raise ValidationError({
+                'date': 'Время окончания должно быть позже времени начала тренировки.'
+            })
+
+    @property
+    def is_past(self):
+        if self.date:
+            return self.date < date.today()
+        return False
     
     
 class Booking(models.Model):
